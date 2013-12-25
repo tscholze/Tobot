@@ -1,5 +1,11 @@
 import org.jibble.pircbot.PircBot;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+
 /**
  * Created by tobias on 25/12/13.
  */
@@ -48,9 +54,40 @@ public class SimpleTobot extends PircBot
         // Global message-related commands
         else
         {
-            if (sender.contains("onkelhotte"))
+            // Random generator
+            if (message.startsWith("!random"))
             {
-                sendMessage(channel, "My "+sender+" !");
+                // Split it
+                String[] parts = message.split(" ");
+
+                // If invalid syntax
+                if (parts.length == 1)
+                {
+                    sendMessage(channel, "Use !random <name1> <name2>");
+                    return;
+                }
+
+                // Removed obsolete parts
+                parts = Arrays.copyOfRange(parts,1, parts.length);
+
+                // If only one argument is given
+                if (parts.length == 1)
+                {
+                    sendMessage(channel, "Easy decision: " + parts[0]);
+                    return;
+                }
+
+                // If default use
+                int randomIndex = (int) (Math.random() * parts.length) + 1;
+                sendMessage(channel, "Random result: " + parts[randomIndex - 1]);
+            }
+
+            // Returns current date time in english locale
+            else if (message.startsWith("!time"))
+            {
+                SimpleDateFormat formatter = (SimpleDateFormat)DateFormat.getDateInstance(DateFormat.LONG, Locale.GERMAN);
+                String now = formatter.format(GregorianCalendar.getInstance().getTime());
+                sendMessage(channel, "Current time: " + now);
             }
         }
     }
