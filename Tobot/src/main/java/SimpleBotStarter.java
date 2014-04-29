@@ -6,7 +6,7 @@ import java.io.IOException;
  * Starter class for a SimpleTobot.
  * @see SimpleTobot
  */
-public class SimeBotStarter
+public class SimpleBotStarter
 {
     /**
      * Starts a SimpleTobot.
@@ -21,7 +21,7 @@ public class SimeBotStarter
 
         try
         {
-            simpleTobot.connect("irc.german-elite.net");
+            simpleTobot.connect("atlas.fr.eu.SwiftIRC.net");
             simpleTobot.joinChannel("#tobot-test");
         }
         catch (IOException e)
